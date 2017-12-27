@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="schemax.brandix_charts.My_Bar_Chart">
+    <include
+        layout="@layout/header"
+        android:id="@+id/header"></include>
+    <TextView
+        android:layout_below="@id/header"
+        android:id="@+id/show_horizontal"
+        android:text="Show Vertical"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.CardView
+      android:layout_below="@id/show_horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+     <com.github.mikephil.charting.charts.BarChart
+         android:layout_below="@+id/show_horizontal"
+         android:layout_width="match_parent"
+         android:id="@+id/mybar_chart"
+         android:layout_height="match_parent">
+
+     </com.github.mikephil.charting.charts.BarChart>
+     <com.github.mikephil.charting.charts.HorizontalBarChart
+         android:layout_below="@+id/show_horizontal"
+         android:visibility="gone"
+         android:id="@+id/myhorizontal_chart"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+
+     </com.github.mikephil.charting.charts.HorizontalBarChart>
+  </android.support.v7.widget.CardView>
+</RelativeLayout>
