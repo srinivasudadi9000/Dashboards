@@ -1,13 +1,18 @@
 package schemax.brandix_charts;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -120,6 +125,7 @@ public class My_Pie_Chart extends Activity {
 // initialize the Bardata with argument labels and dataSet
         BarData data = new BarData();
         mybarchart.setData(data);
+
     }
 
     private void addPieChart() {
@@ -156,8 +162,20 @@ public class My_Pie_Chart extends Activity {
         mypiechart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Log.d("dashboard", e.toString());
-                Log.d("dashboard", h.toString());
+                Toast.makeText(getBaseContext(),e.getData().toString(),Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertadd = new AlertDialog.Builder(My_Pie_Chart.this);
+                LayoutInflater factory = LayoutInflater.from(My_Pie_Chart.this);
+                final View view = factory.inflate(R.layout.image_view, null);
+                alertadd.setView(view);
+                alertadd.setNeutralButton("Here!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dlg, int sumthin) {
+
+                    }
+                });
+
+                AlertDialog alertDialog = alertadd.create();
+                alertDialog.getWindow().setLayout(100, 100);
+                alertadd.show();
             }
 
             @Override
