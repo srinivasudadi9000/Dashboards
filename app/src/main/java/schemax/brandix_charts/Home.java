@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Home extends Activity implements View.OnClickListener{
-Button mypiechart,mybarchart,myLinechart,myplainchart;
+Button mypiechart,mybarchart,myLinechart,myplainchart,bar_line_chart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,10 +17,12 @@ Button mypiechart,mybarchart,myLinechart,myplainchart;
         mypiechart = (Button) findViewById(R.id.mypiechart);
         myLinechart = (Button) findViewById(R.id.myLinechart);
         myplainchart = (Button) findViewById(R.id.myplainchart);
+        bar_line_chart = (Button) findViewById(R.id.bar_line_chart);
         myLinechart.setOnClickListener(this);
         mypiechart.setOnClickListener(this);
         mybarchart.setOnClickListener(this);
         myplainchart.setOnClickListener(this);
+        bar_line_chart.setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +43,10 @@ Button mypiechart,mybarchart,myLinechart,myplainchart;
             case R.id.myplainchart:
                 Intent plainchart = new Intent(Home.this,Materialdesigndashboard.class);
                 startActivity(plainchart);
+                break;
+            case R.id.bar_line_chart:
+                Intent bar_and_line = new Intent(Home.this,Bar_and_Line_Chart.class);
+                startActivity(bar_and_line);
                 break;
         }
 

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="schemax.brandix_charts">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:allowBackup="true"
@@ -10,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Home">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,9 +23,10 @@
         <activity android:name=".My_Pie_Chart" />
         <activity android:name=".My_Line_Chart" />
         <activity android:name=".My_Bar_Chart" />
-        <activity android:name=".Materialdesigndashboard"></activity>
-
+        <activity android:name=".Materialdesigndashboard" />
+        <activity android:name=".Bar_and_Line_Chart" />
+        <activity android:name=".Spread_Sheets" />
+        <activity android:name=".Home"></activity>
     </application>
-
 
 </manifest>
