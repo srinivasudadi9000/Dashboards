@@ -31,12 +31,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,7 +88,7 @@ public class MainActivity extends Activity
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallApiButton.setEnabled(false);
+                 mCallApiButton.setEnabled(false);
                 mOutputText.setText("");
                 getResultsFromApi();
                 mCallApiButton.setEnabled(true);
@@ -368,7 +370,8 @@ public class MainActivity extends Activity
             // String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
               String spreadsheetId = "1IBroHLHJKfINNDWKli3mPVjgXxxKgp1SlvnKHVJaamU";
            // String range = "Class Data!A2:E";
-             String range = "A2:C";
+             String range = "Sheet2!A2:C";
+             ArrayList<Normal> normals = new ArrayList<Normal>();
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
                     .get(spreadsheetId, range)
@@ -378,8 +381,38 @@ public class MainActivity extends Activity
                 results.add("name, number");
                 for (List row : values) {
                     results.add(row.get(0) + ", " + row.get(2));
+                    normals.add(new Normal(row.get(0).getClass().getName(),row.get(2).getClass().getName()));
+
                 }
+                new DBHelper(normals,MainActivity.this);
+                new DBHelper(normals,MainActivity.this).getNormal();
             }
+
+              // String range = "Class Data!A2:E";
+             String range2 = "Sheet1!A2:C";
+              ValueRange response2 = this.mService.spreadsheets().values()
+                     .get(spreadsheetId, range2)
+                     .execute();
+             List<List<Object>> values2 = response2.getValues();
+             if (values2 != null) {
+                 results.add("name, number");
+                 for (List row : values2) {
+                     results.add(row.get(0) + ", " + row.get(2));
+                 }
+             }
+
+           /*  // String range = "Class Data!A2:E";
+             String range3 = "Sheet3!A2:C";
+             ValueRange response3 = this.mService.spreadsheets().values()
+                     .get(spreadsheetId, range3)
+                     .execute();
+             List<List<Object>> values3 = response3.getValues();
+             if (values3 != null) {
+                 results.add("name, number");
+                 for (List row : values3) {
+                     results.add(row.get(0) + ", " + row.get(2));
+                 }
+             }*/
             return results;
         }
 
@@ -422,4 +455,5 @@ public class MainActivity extends Activity
             }
         }
     }
-}
+
+ }
