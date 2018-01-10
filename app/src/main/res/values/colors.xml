@@ -3,10 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentbrd">#fa7aa5</color>
 
-
+    <color name="brandix_red">#ff0000</color>
+    <color name="brandix_brown">#8c8888</color>
     <color name="colorPrimaryTransparent">#335f50e1</color>
-
+    <color name="green">#2dc937</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="oldcolor">#337BB5</color>

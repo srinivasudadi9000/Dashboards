@@ -19,8 +19,9 @@ import java.util.ArrayList;
 public class My_Bar_Chart extends Activity {
     BarChart mybar_chart;
     HorizontalBarChart myhorizontal_chart;
-    TextView show_horizontal,myheader_tv;
+    TextView show_horizontal, myheader_tv;
     ImageView myback_img;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,31 +31,33 @@ public class My_Bar_Chart extends Activity {
         myheader_tv = (TextView) findViewById(R.id.myheader_tv);
         myheader_tv.setText("Shop Floor Bar Chart ");
         myhorizontal_chart = (HorizontalBarChart) findViewById(R.id.myhorizontal_chart);
-        show_horizontal = (TextView)findViewById(R.id.show_horizontal);
+        show_horizontal = (TextView) findViewById(R.id.show_horizontal);
 
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(10f, 10));
-        barEntries.add(new BarEntry(20f, 20));
+         ArrayList<BarEntry> barEntries = new ArrayList<>();
+       // barEntries = new DBHelper(My_Bar_Chart.this).getNormal(My_Bar_Chart.this);
+
+        barEntries.add(new BarEntry(0f, 10));
+        barEntries.add(new BarEntry(15f, 20));
         barEntries.add(new BarEntry(30f, 30));
-        barEntries.add(new BarEntry(40f, 40));
-        barEntries.add(new BarEntry(50f, 50));
-        barEntries.add(new BarEntry(60f, 60));
-        barEntries.add(new BarEntry(70f, 70));
+        barEntries.add(new BarEntry(45f, 40));
+        barEntries.add(new BarEntry(60f, 50));
+        barEntries.add(new BarEntry(75f, 60));
+        barEntries.add(new BarEntry(90f, 70));
 
         BarDataSet dd = new BarDataSet(barEntries, "Dates");
         dd.setColors(ColorTemplate.COLORFUL_COLORS);
 
         ArrayList<BarEntry> barEntries2 = new ArrayList<>();
-        barEntries2.add(new BarEntry(5f, 5));
-        barEntries2.add(new BarEntry(5f, 10));
-        barEntries2.add(new BarEntry(10f, 15));
-        barEntries2.add(new BarEntry(15f, 20));
-        barEntries2.add(new BarEntry(25f, 25));
-        barEntries2.add(new BarEntry(30f, 30));
-        barEntries2.add(new BarEntry(35f, 35));
+        barEntries2.add(new BarEntry(5f, 50));
+        barEntries2.add(new BarEntry(20f, 100));
+        barEntries2.add(new BarEntry(35f, 150));
+        barEntries2.add(new BarEntry(50f, 200));
+        barEntries2.add(new BarEntry(65f, 250));
+        barEntries2.add(new BarEntry(80f, 300));
+        barEntries2.add(new BarEntry(95f, 350));
 
-        BarDataSet dd2 = new BarDataSet(barEntries, "Dates");
-        dd2.setColors(ColorTemplate.COLORFUL_COLORS);
+        BarDataSet dd2 = new BarDataSet(barEntries2, "Dates");
+        //dd2.setColors(ColorTemplate.COLORFUL_COLORS);
 
         ArrayList<String> thedates = new ArrayList<>();
         thedates.add("January");
@@ -66,7 +69,7 @@ public class My_Bar_Chart extends Activity {
         thedates.add("July");
         //thedates.add("May");
 
-        final BarData barData = new BarData(dd,dd2);
+        final BarData barData = new BarData(dd, dd2);
         barData.setBarWidth(7f);
         mybar_chart.setData(barData);
         mybar_chart.setDragXEnabled(true);
@@ -77,13 +80,13 @@ public class My_Bar_Chart extends Activity {
         show_horizontal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (show_horizontal.getText().toString().equals("Show Vertical")){
+                if (show_horizontal.getText().toString().equals("Show Vertical")) {
                     show_horizontal.setText("Show Horizontal");
                     myhorizontal_chart.setVisibility(View.VISIBLE);
                     myhorizontal_chart.animateY(3000);
                     myhorizontal_chart.setData(barData);
                     mybar_chart.setVisibility(View.GONE);
-                }else {
+                } else {
                     show_horizontal.setText("Show Vertical");
                     mybar_chart.setVisibility(View.VISIBLE);
                     myhorizontal_chart.setData(barData);

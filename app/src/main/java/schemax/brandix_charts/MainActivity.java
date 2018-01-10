@@ -1,5 +1,6 @@
 package schemax.brandix_charts;
 
+import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -88,7 +89,7 @@ public class MainActivity extends Activity
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 mCallApiButton.setEnabled(false);
+                mCallApiButton.setEnabled(false);
                 mOutputText.setText("");
                 getResultsFromApi();
                 mCallApiButton.setEnabled(true);
@@ -124,7 +125,7 @@ public class MainActivity extends Activity
      * of the preconditions are not satisfied, the app will prompt the user as
      * appropriate.
      */
-    private void getResultsFromApi() {
+    public void getResultsFromApi() {
         if (!isGooglePlayServicesAvailable()) {
             acquireGooglePlayServices();
         } else if (mCredential.getSelectedAccountName() == null) {
@@ -363,15 +364,15 @@ public class MainActivity extends Activity
          * @throws IOException
          */
 
-         private List<String> getDataFromApi() throws IOException {
+        private List<String> getDataFromApi() throws IOException {
 
             // String urlString = "https://docs.google.com/spreadsheets/d/1IBroHLHJKfINNDWKli3mPVjgXxxKgp1SlvnKHVJaamU/edit#gid=0";
 
             // String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-              String spreadsheetId = "1IBroHLHJKfINNDWKli3mPVjgXxxKgp1SlvnKHVJaamU";
-           // String range = "Class Data!A2:E";
-             String range = "Sheet2!A2:C";
-             ArrayList<Normal> normals = new ArrayList<Normal>();
+            String spreadsheetId = "1IBroHLHJKfINNDWKli3mPVjgXxxKgp1SlvnKHVJaamU";
+            // String range = "Class Data!A2:E";
+            String range = "Sheet2!A2:C";
+            ArrayList<Normal> normals = new ArrayList<Normal>();
             List<String> results = new ArrayList<String>();
             ValueRange response = this.mService.spreadsheets().values()
                     .get(spreadsheetId, range)
@@ -379,27 +380,36 @@ public class MainActivity extends Activity
             List<List<Object>> values = response.getValues();
             if (values != null) {
                 results.add("name, number");
+
                 for (List row : values) {
                     results.add(row.get(0) + ", " + row.get(2));
-                    normals.add(new Normal(row.get(0).getClass().getName(),row.get(2).getClass().getName()));
-
+                    Log.d("hi", String.valueOf(row.get(0))+row.get(2));
+                    String x = String.valueOf(row.get(0));
+                    String y = String.valueOf(row.get(2));
+                    normals.add(new Normal(x,y));
                 }
-                new DBHelper(normals,MainActivity.this);
-                new DBHelper(normals,MainActivity.this).getNormal();
+
+               new DBHelper(normals, MainActivity.this);
+                ArrayList<BarEntry> pp =  new DBHelper(MainActivity.this).getNormal(MainActivity.this);
+                String xxx = String.valueOf(pp.size());
+                Log.d("good job ",xxx);
+                Intent home = new Intent(MainActivity.this,Home.class);
+                startActivity(home);
+
             }
 
-              // String range = "Class Data!A2:E";
-             String range2 = "Sheet1!A2:C";
-              ValueRange response2 = this.mService.spreadsheets().values()
-                     .get(spreadsheetId, range2)
-                     .execute();
-             List<List<Object>> values2 = response2.getValues();
-             if (values2 != null) {
-                 results.add("name, number");
-                 for (List row : values2) {
-                     results.add(row.get(0) + ", " + row.get(2));
-                 }
-             }
+          /*  // String range = "Class Data!A2:E";
+            String range2 = "Sheet1!A2:C";
+            ValueRange response2 = this.mService.spreadsheets().values()
+                    .get(spreadsheetId, range2)
+                    .execute();
+            List<List<Object>> values2 = response2.getValues();
+            if (values2 != null) {
+                results.add("name, number");
+                for (List row : values2) {
+                    results.add(row.get(0) + ", " + row.get(2));
+                }
+            }*/
 
            /*  // String range = "Class Data!A2:E";
              String range3 = "Sheet3!A2:C";
@@ -429,8 +439,10 @@ public class MainActivity extends Activity
             if (output == null || output.size() == 0) {
                 mOutputText.setText("No results returned.");
             } else {
-                output.add(0, "Data retrieved using the Google Sheets API:");
+                output.add(0, "Srinivas Data retrieved using the Google Sheets API:");
                 mOutputText.setText(TextUtils.join("\n", output));
+
+
             }
         }
 
@@ -456,4 +468,4 @@ public class MainActivity extends Activity
         }
     }
 
- }
+}

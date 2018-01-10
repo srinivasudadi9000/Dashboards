@@ -23,6 +23,7 @@ Button mypiechart,mybarchart,myLinechart,myplainchart,bar_line_chart;
         mybarchart.setOnClickListener(this);
         myplainchart.setOnClickListener(this);
         bar_line_chart.setOnClickListener(this);
+        new DBHelper( Home.this).getNormal(Home.this);
     }
 
     @Override
